@@ -7,18 +7,19 @@ import android.graphics.Matrix;
  */
 public interface DragListener {
 
-    public static final int LEFT=1;
-    public static final int RIGHT=2;
+    public static final int LEFT = 1;
+    public static final int RIGHT = 2;
 
-    public static final int STATE_DRAGING=100;
-    public static final int STATE_RESET_FROM_RIGHT=101;
-    public static final int STATE_RESET_FROM_LEFT=102;
-    public static final int STATE_DRAG_TO_LEFT=103;
-    public static final int STATE_DRAG_TO_RIGHT=104;
-    public static final int STATE_RESET_REBOUND=105;
+    public static final int STATE_DRAGING = 100;
+    public static final int STATE_RESET_FROM_RIGHT = 101;
+    public static final int STATE_RESET_FROM_LEFT = 102;
+    public static final int STATE_DRAG_TO_LEFT = 103;
+    public static final int STATE_DRAG_TO_RIGHT = 104;
+    public static final int STATE_RESET_REBOUND = 105;
 
     /**
      * 拖动过程中
+     *
      * @param matrix
      */
     public void onDrag(Matrix matrix, int state);
@@ -33,6 +34,7 @@ public interface DragListener {
 
     /**
      * 切出动画结束之后
+     *
      * @param direction
      */
     public void onDragOutFinish(int direction);
