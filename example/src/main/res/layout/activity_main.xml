@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <info.fangjie.dragimageview.DragImageView
+            android:layout_width="fill_parent"
+            android:id="@+id/dragview_bottom"
+            android:background="#00ffffff"
+            android:src="@drawable/cute_or_not_default"
+            android:layout_height="fill_parent" />
+
+        <info.fangjie.dragimageview.RotateRelativeLayout
+            android:layout_width="fill_parent"
+            android:id="@+id/rl_bottom"
+            android:layout_height="fill_parent">
+            <TextView
+                android:layout_width="80dp"
+                android:background="@drawable/bg_corner_title"
+                android:gravity="center"
+                android:id="@+id/tv_mark_bottom"
+                android:textSize="13sp"
+                android:text="第二张"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:textColor="#5f5d5b"
+                android:layout_height="30dp" />
+        </info.fangjie.dragimageview.RotateRelativeLayout>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fl_top"
+        android:layout_height="match_parent">
+        <info.fangjie.dragimageview.DragImageView
+            android:layout_width="fill_parent"
+            android:id="@+id/dragview_top"
+            android:src="@drawable/cute_or_not_default"
+            android:background="#00ffffff"
+            android:layout_height="fill_parent" />
+
+        <info.fangjie.dragimageview.RotateRelativeLayout
+            android:layout_width="fill_parent"
+            android:id="@+id/rl_top"
+            android:layout_height="fill_parent">
+            <TextView
+                android:layout_width="80dp"
+                android:background="@drawable/bg_corner_title"
+                android:gravity="center"
+                android:text="第一张"
+                android:id="@+id/tv_mark_top"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:textSize="13sp"
+                android:textColor="#5f5d5b"
+                android:layout_height="30dp" />
+        </info.fangjie.dragimageview.RotateRelativeLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:id="@+id/iv_left"
+        android:src="@drawable/nomoe"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:id="@+id/iv_right"
+        android:src="@drawable/moe"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="60dp" />
+
+</RelativeLayout>
