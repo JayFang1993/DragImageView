@@ -10,48 +10,29 @@ public interface DragListener {
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
 
+    //手动拖拽使得Dragimageview矩阵变换
     public static final int STATE_DRAGING = 100;
-    public static final int STATE_RESET_FROM_RIGHT = 101;
-    public static final int STATE_RESET_FROM_LEFT = 102;
-    public static final int STATE_DRAG_TO_LEFT = 103;
-    public static final int STATE_DRAG_TO_RIGHT = 104;
-    public static final int STATE_RESET_REBOUND = 105;
+    //MOVE动画使得Dragimageview矩阵变换
+    public static final int STATE_NOT_DRAGING = 101;
 
     /**
      * 拖动过程中
-     *
-     * @param matrix
      */
     public void onDrag(Matrix matrix, int state);
 
     /**
-     * 手指拖拽之后有两种结果
-     *
-     * 1.恢复原样  onDragReset
-     * 2.移出去，切换  onDragOut （又分左边切出还是右边切出）
-     *
-     */
-
-    /**
-     * 切出动画结束之后
-     *
-     * @param direction
+     * 移出动画结束之后
      */
     public void onDragOutFinish(int direction);
 
     /**
-     * 开始切出动画
+     * 切出动画开始
      */
     public void onDragOut(int direction);
 
     /**
-     * 开始reset动画
+     * RESET动画开始
      */
     public void onDragReset(int direction);
 
-
-    /**
-     * reset动画结束之后
-     */
-    public void onDragResetFinish();
 }

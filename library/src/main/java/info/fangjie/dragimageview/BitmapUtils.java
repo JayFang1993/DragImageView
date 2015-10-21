@@ -33,6 +33,7 @@ public class BitmapUtils {
             x1=0;
         }
 
+
         //cut the bitmap
         Bitmap cutBitmap = Bitmap.createBitmap(bitmap, x1, y1,(int)width, (int)height);
         imageView.setImageBitmap(cutBitmap);

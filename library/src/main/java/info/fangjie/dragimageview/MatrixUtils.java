@@ -5,13 +5,11 @@ import android.graphics.Matrix;
 /**
  * Created by FangJie on 15/9/3.
  */
+
 public class MatrixUtils {
 
-    public static final int ROTATE_CENTER_X=200;
-    public static final int ROTATE_CENTER_Y=10000;
-
-    public static Matrix removeScale(Matrix matrix){
-        Matrix newMatrix=new Matrix();
+    public static Matrix removeScale(Matrix matrix) {
+        Matrix newMatrix = new Matrix();
         float[] v = new float[9];
         matrix.getValues(v);
         // translation is simple
@@ -28,20 +26,20 @@ public class MatrixUtils {
         return newMatrix;
     }
 
-    public static float[] getTransXY(Matrix matrix){
+    public static float[] getTransXY(Matrix matrix) {
         float[] v = new float[9];
-        float[] result=new  float[2];
+        float[] result = new float[2];
         matrix.getValues(v);
         // translation is simple
         float tx = v[Matrix.MTRANS_X];
         float ty = v[Matrix.MTRANS_Y];
-        result[0]=tx;
-        result[1]=ty;
+        result[0] = tx;
+        result[1] = ty;
         return result;
     }
 
 
-    public static float getRotate(Matrix matrix){
+    public static float getRotate(Matrix matrix) {
         float[] v = new float[9];
         matrix.getValues(v);
         // translation is simple

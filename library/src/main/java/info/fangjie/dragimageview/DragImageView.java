@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -13,23 +14,32 @@ import android.widget.ImageView;
 /**
  * Created by FangJie on 15/8/27.
  */
+
 public class DragImageView extends ImageView {
 
+    //拖拽距离 是 弹簧回弹的距离 的倍数
     public final static int REBOUND = 6;
+    //复位动画的 动画时间
     public final static int RESETTIME = 300;
+    //弹簧动画的 动画时间
     public final static int REBOUNDTIME = 100;
+    //拖拽旋转地中心点坐标
+    public static final int ROTATE_CENTER_X = 400;
+    public static final int ROTATE_CENTER_Y = 6000;
 
-    private float startPosX, startPosY, endPosX, endPosY;
+    //拖拽按下的点
+    private float startPosX, startPosY;
+    //拖拽松开的点
+    private float endPosX, endPosY;
+    //拖拽松开的角度
+    private float endRorate;
 
-    private float curPosX = 0, curPosY = 0, curRorate = 0;
+    private Matrix matrix;
+    private DragListener dragListener;
     public float resWidth, resHeight;
     public float imageViewWidth, imageViewHeight;
+    //图片资源缩放比例
     public float scale;
-    private Matrix matrix;
-
-    private DragListener dragListener;
-
-    private Context mContext;
 
     public DragImageView(Context context) {
         super(context);
@@ -46,35 +56,20 @@ public class DragImageView extends ImageView {
         init(context);
     }
 
-
-    public float getImageViewHeight() {
-        return imageViewHeight;
-    }
-
-    public float getImageViewWidth() {
-        return imageViewWidth;
-    }
-
     private void init(Context context) {
-        setScaleType(ScaleType.MATRIX);
+        setScaleType(ScaleType.CENTER_CROP);
         matrix = new Matrix();
-        mContext = context;
     }
 
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+        setScaleType(ScaleType.MATRIX);
         resWidth = getDrawable().getIntrinsicWidth();
         resHeight = getDrawable().getIntrinsicHeight();
         imageViewWidth = getWidth();
         imageViewHeight = getHeight();
-
-        matrix.reset();
-        matrix.postTranslate(0, 0);
-        scale = (imageViewWidth / resWidth) > (imageViewHeight / resHeight) ? (imageViewWidth / resWidth) : (imageViewHeight / resHeight);
-        matrix.postScale(scale, scale);
-        setImageMatrix(matrix);
     }
 
     public Matrix resetMatrix() {
@@ -82,12 +77,16 @@ public class DragImageView extends ImageView {
         matrix.postTranslate(0, 0);
         resWidth = getDrawable().getIntrinsicWidth();
         resHeight = getDrawable().getIntrinsicHeight();
-        scale = (imageViewWidth / resWidth) > (imageViewHeight / resHeight) ? (imageViewWidth / resWidth) : (imageViewHeight / resHeight);
+        scale = (imageViewWidth / resWidth) > (imageViewHeight / resHeight) ? (imageViewWidth / resWidth) :
+                (imageViewHeight / resHeight);
         matrix.postScale(scale, scale);
         setImageMatrix(matrix);
         return matrix;
     }
 
+    public void setDragListener(DragListener dragListener) {
+        this.dragListener = dragListener;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -95,36 +94,46 @@ public class DragImageView extends ImageView {
             endPosX = event.getX();
             endPosY = event.getY();
 
-            curPosX += (endPosX - startPosX);
-            curPosY += (endPosY - startPosY);
-            curRorate += (endPosX - startPosX) * 360 / 48000;
+            int radius = (int) (ROTATE_CENTER_Y - endPosY);
+            int perimeter = (int) (radius * 2 * Math.PI);
+
+            //拖拽的距离
+            float detaX = endPosX - startPosX;
+            float detaY = endPosY - startPosY;
+
             //1.平移
             matrix.reset();
+            matrix.postTranslate(detaX, detaY);
+            //2.缩放
             matrix.postScale(scale, scale);
-            matrix.postTranslate(curPosX, curPosY);
-            //2.旋转
+            //3.旋转
             if (endPosX > startPosX) {
-                matrix.postRotate((endPosX - startPosX) * 360 / 48000, MatrixUtils.ROTATE_CENTER_X, MatrixUtils.ROTATE_CENTER_Y);
+                endRorate = (endPosX - startPosX) * 360 / perimeter;
             } else {
-                matrix.postRotate(360 - (startPosX - endPosX) * 360 / 48000, MatrixUtils.ROTATE_CENTER_X, MatrixUtils.ROTATE_CENTER_Y);
+                endRorate = (360 - (startPosX - endPosX) * 360 / perimeter);
             }
+            matrix.postRotate(endRorate, ROTATE_CENTER_X, ROTATE_CENTER_Y);
 
             setImageMatrix(matrix);
             if (dragListener != null)
                 dragListener.onDrag(matrix, DragListener.STATE_DRAGING);
-            startPosX = endPosX;
-            startPosY = endPosY;
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (curPosX > imageViewWidth / 4) {//右侧划出
-                resetWithAnimation(curPosX, resWidth, curPosY, -200, curRorate, 0, false);
-            } else if (-curPosX > imageViewWidth / 4) {//左侧划出
-                resetWithAnimation(curPosX, -resWidth, curPosY, resHeight - 200, curRorate, 0, false);
-            } else {
-                resetWithAnimation(curPosX, 0, curPosY, 0, curRorate, 0, true);
+
+        } else if (event.getAction() == MotionEvent.ACTION_UP && endPosX != 0) {
+            //满足拖拽距离大于1/4，从右侧划出
+            if (endPosX - startPosX > imageViewWidth / 4) {
+                moveAnimation(endPosX - startPosX, resWidth, endPosY - startPosY, -200, endRorate, 0, false);
             }
-            curPosX = 0;
-            curRorate = 0;
-            curPosY = 0;
+            //满足拖拽距离小于-1/4，从左侧划出
+            else if (startPosX - endPosX > imageViewWidth / 4) {
+                moveAnimation(endPosX - startPosX, -resWidth, endPosY - startPosY, resHeight - 200, endRorate, 0, false);
+            }
+            //否则RESET
+            else {
+                moveAnimation(endPosX - startPosX, 0, endPosY - startPosY, 0, endRorate, 0, true);
+            }
+            endPosX = 0;
+            endPosX = 0;
+            endRorate = 0;
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             startPosX = event.getX();
             startPosY = event.getY();
@@ -132,43 +141,46 @@ public class DragImageView extends ImageView {
         return true;
     }
 
-    //定点动画
-    private void resetWithAnimation(final float startX, final float endX, final float startY, final float endY,
-                                    float startRorate, float endRotate, final boolean isReBound) {
-
+    /**
+     * 将DragImageview从起点移动到终点的translate动画
+     *
+     * @param startX
+     * @param endX
+     * @param startY
+     * @param endY
+     * @param startRorate
+     * @param endRotate
+     * @param isReBound   移动结束是否伴随弹簧动画
+     */
+    private void moveAnimation(final float startX, final float endX, final float startY, final float endY,
+                               float startRorate, float endRotate, final boolean isReBound) {
         PropertyValuesHolder xValue = PropertyValuesHolder.ofFloat("X", startX, endX);
         PropertyValuesHolder yValue = PropertyValuesHolder.ofFloat("Y", startY, endY);
-        PropertyValuesHolder rorateValue = PropertyValuesHolder.ofFloat("RORATE", startRorate, endRotate);
-        ValueAnimator mCurrentAnimator = ValueAnimator.ofPropertyValuesHolder(xValue, yValue, rorateValue);
+        if (startRorate > 180) {
+            startRorate = startRorate - 360;
+        }
+        Log.i("fangjie", "X:" + startX + "->" + endX);
+        PropertyValuesHolder rValue = PropertyValuesHolder.ofFloat("R", startRorate, endRotate);
+        ValueAnimator mCurrentAnimator = ValueAnimator.ofPropertyValuesHolder(xValue, yValue, rValue);
         mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float xValue = (Float) animation.getAnimatedValue("X");
                 float yValue = (Float) animation.getAnimatedValue("Y");
-                float rorateValue = (Float) animation.getAnimatedValue("RORATE");
+                float rValue = (Float) animation.getAnimatedValue("R");
                 matrix.reset();
                 matrix.postTranslate(xValue, yValue);
                 matrix.postScale(scale, scale);
-//                matrix.postScale(imageViewWidth / resWidth, imageViewHeight / resHeight);
+                matrix.postRotate(rValue);
                 DragImageView.this.setImageMatrix(matrix);
-                if (dragListener != null) {
-                    if (endX == 0 && startX > 0) {
-                        dragListener.onDrag(matrix, DragListener.STATE_RESET_FROM_RIGHT);
-                    } else if (endX == 0 && startX < 0) {
-                        dragListener.onDrag(matrix, DragListener.STATE_RESET_FROM_LEFT);
-                    } else if (endX > 0) {
-                        dragListener.onDrag(matrix, DragListener.STATE_DRAG_TO_RIGHT);
-                    } else if (endX < 0) {
-                        dragListener.onDrag(matrix, DragListener.STATE_DRAG_TO_LEFT);
-                    }
-                }
-
+                if (dragListener != null)
+                    dragListener.onDrag(matrix, DragListener.STATE_NOT_DRAGING);
             }
         });
 
         mCurrentAnimator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animator) {
+            public void onAnimationStart(Animator animation) {
                 if (dragListener != null) {
                     if (endX == 0) {
                         if (startX > 0)
@@ -181,35 +193,19 @@ public class DragImageView extends ImageView {
                     } else {
                         dragListener.onDragOut(DragListener.RIGHT);
                     }
-
                 }
             }
 
             @Override
-            public void onAnimationEnd(Animator animator) {
+            public void onAnimationEnd(Animator animation) {
                 if (isReBound) {
-                    reboundAnimation(endX, endX + (startX - endX) / REBOUND, endY, endY + (startY - endY) / REBOUND, new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
-                            reboundAnimation(endX + (startX - endX) / REBOUND, endX, endY + (startY - endY) / REBOUND, endY, null);
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animator) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animator) {
-
-                        }
-                    });
-
+                    springAnimation(endX, endX + (startX - endX) / REBOUND, endY, endY + (startY - endY) / REBOUND,
+                            new CustomAnimatorListener() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    springAnimation(endX + (startX - endX) / REBOUND, endX, endY + (startY - endY) / REBOUND, endY, null);
+                                }
+                            });
                 } else {
                     if (dragListener != null) {
                         if (endX < 0) {
@@ -222,24 +218,28 @@ public class DragImageView extends ImageView {
             }
 
             @Override
-            public void onAnimationCancel(Animator animator) {
-
+            public void onAnimationCancel(Animator animation) {
             }
 
             @Override
-            public void onAnimationRepeat(Animator animator) {
-
+            public void onAnimationRepeat(Animator animation) {
             }
         });
-
         mCurrentAnimator.setDuration(RESETTIME);
         mCurrentAnimator.start();
     }
 
-    //回弹动画
-    private void reboundAnimation(final float startX, final float endX, final float startY, final float endY,
-                                  Animator.AnimatorListener listener) {
-
+    /**
+     * 弹簧动画
+     *
+     * @param startX
+     * @param endX
+     * @param startY
+     * @param endY
+     * @param listener
+     */
+    private void springAnimation(final float startX, final float endX, final float startY, final float endY,
+                                 Animator.AnimatorListener listener) {
         PropertyValuesHolder xValue = PropertyValuesHolder.ofFloat("X", startX, endX);
         PropertyValuesHolder yValue = PropertyValuesHolder.ofFloat("Y", startY, endY);
         ValueAnimator mCurrentAnimator = ValueAnimator.ofPropertyValuesHolder(xValue, yValue);
@@ -253,7 +253,7 @@ public class DragImageView extends ImageView {
                 matrix.postScale(scale, scale);
                 DragImageView.this.setImageMatrix(matrix);
                 if (dragListener != null)
-                    dragListener.onDrag(matrix, DragListener.STATE_RESET_REBOUND);
+                    dragListener.onDrag(matrix, DragListener.STATE_NOT_DRAGING);
             }
         });
         if (listener != null)
@@ -261,9 +261,4 @@ public class DragImageView extends ImageView {
         mCurrentAnimator.setDuration(REBOUNDTIME);
         mCurrentAnimator.start();
     }
-
-    public void setDragListener(DragListener dragListener) {
-        this.dragListener = dragListener;
-    }
-
 }
