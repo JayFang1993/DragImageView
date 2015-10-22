@@ -39,11 +39,11 @@ public class TrueOrNotExample extends Activity {
     private int leftViewLeftMargin, leftViewBottomMargin;//左下图标的初始margin值
     private int rightViewRightMargin, rightViewBottomMargin;//右下图标的初始margin值
 
-    private String arr[] = {"http://image17-c.poco.cn/mypoco/qing/20151005/16/3175349739049393137_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150930/00/6519029902905064376_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150729/21/336442309889423136_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150903/20/1588628341864082833_661x1024_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150704/16/1514271282634186881_768x1024_320.jpg"};
+    private String arr[] = {"http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152522076_640.jpg",
+            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152536090_640.jpg",
+            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152552092_640.jpg",
+            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152618076_640.jpg",
+            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152627060_640.jpg"};
     private String string[] = {"First", "Second", "Third", "Fourth", "Fifth"};
 
     private static int index = 0;

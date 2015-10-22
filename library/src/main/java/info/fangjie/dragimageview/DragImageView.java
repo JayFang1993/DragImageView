@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
@@ -25,7 +24,7 @@ public class DragImageView extends ImageView {
     public final static int REBOUNDTIME = 100;
     //拖拽旋转地中心点坐标
     public static final int ROTATE_CENTER_X = 400;
-    public static final int ROTATE_CENTER_Y = 6000;
+    public static final int ROTATE_CENTER_Y = 4000;
 
     //拖拽按下的点
     private float startPosX, startPosY;
@@ -159,7 +158,6 @@ public class DragImageView extends ImageView {
         if (startRorate > 180) {
             startRorate = startRorate - 360;
         }
-        Log.i("fangjie", "X:" + startX + "->" + endX);
         PropertyValuesHolder rValue = PropertyValuesHolder.ofFloat("R", startRorate, endRotate);
         ValueAnimator mCurrentAnimator = ValueAnimator.ofPropertyValuesHolder(xValue, yValue, rValue);
         mCurrentAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

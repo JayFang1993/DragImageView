@@ -21,7 +21,7 @@ public class MatrixUtils {
         float skewy = v[Matrix.MSKEW_Y];
         float rScale = (float) Math.sqrt(scalex * scalex + skewy * skewy);
         // calculate the degree of rotation
-        float rAngle = Math.round(Math.atan2(v[Matrix.MSKEW_X], v[Matrix.MSCALE_X]) * (180 / Math.PI));
+        float rAngle = - Math.round(Math.atan2(v[Matrix.MSKEW_X], v[Matrix.MSCALE_X]) * (180 / Math.PI));
         newMatrix.postRotate(rAngle);
         return newMatrix;
     }
@@ -50,7 +50,7 @@ public class MatrixUtils {
         float skewy = v[Matrix.MSKEW_Y];
         float rScale = (float) Math.sqrt(scalex * scalex + skewy * skewy);
         // calculate the degree of rotation
-        float rAngle = Math.round(Math.atan2(v[Matrix.MSKEW_X], v[Matrix.MSCALE_X]) * (180 / Math.PI));
+        float rAngle = - Math.round(Math.atan2(v[Matrix.MSKEW_X], v[Matrix.MSCALE_X]) * (180 / Math.PI));
         return rAngle;
     }
 

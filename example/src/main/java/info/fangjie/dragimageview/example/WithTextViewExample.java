@@ -31,11 +31,11 @@ public class WithTextViewExample extends Activity {
 
     private MyLayerView layerViewTop,layerViewBottom;
 
-    private String arr[] = {"http://image17-c.poco.cn/mypoco/qing/20151005/16/3175349739049393137_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150930/00/6519029902905064376_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150729/21/336442309889423136_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150903/20/1588628341864082833_661x1024_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150704/16/1514271282634186881_768x1024_320.jpg"};
+    private String arr[] = {"http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222639036_640.jpg",
+            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222721017_640.jpg",
+            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222722013_640.jpg",
+            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222645034_640.jpg",
+            "http://image15-c.poco.cn/mypoco/myphoto/20150104/11/5520093920150104111446057_640.jpg"};
     private String string[] = {"你我的相遇本身就是一个美丽的错误，\n这也许是天意，\n那就让我们共入歧途吧！ ",
             "如果我你是一粒沙，\n会从我手中划落，\n我不知是否应该将你再次捧起！",
             "生命里，\n最舍不得的那一页，\n总是藏得最深！",
