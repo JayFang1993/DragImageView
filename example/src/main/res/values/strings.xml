@@ -2,6 +2,6 @@
     <string name="app_name">DragImage</string>
 
     <string name="describ">DragImageView案例</string>
-    <string name="action_settings">Fork</string>
+    <string name="action_settings">GitHub</string>
     <string name="title_activity_main">DragImageView案例</string>
 </resources>
