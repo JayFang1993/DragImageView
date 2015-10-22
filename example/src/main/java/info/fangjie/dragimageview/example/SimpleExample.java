@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,9 +28,6 @@ import info.fangjie.dragimageview.LayerViewUtils;
 public class SimpleExample extends Activity {
 
     private BaseLayerView layerViewTop,layerViewBottom;
-
-    private ImageView mImageviewLeft, mImageviewRight;
-
 
     private String arr[] = {"http://image17-c.poco.cn/mypoco/qing/20151005/16/3175349739049393137_1024x682_320.jpg",
             "http://image17-c.poco.cn/mypoco/qing/20150930/00/6519029902905064376_1024x682_320.jpg",

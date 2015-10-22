@@ -113,10 +113,12 @@ public class WithTextViewExample extends Activity {
         layerViewTop.textView.setText(string[0]);
         ImageLoader.getInstance().displayImage(arr[1], layerViewBottom.dragImageView, options, new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {}
+            public void onLoadingStarted(String imageUri, View view) {
+            }
 
             @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {}
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+            }
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
@@ -125,10 +127,34 @@ public class WithTextViewExample extends Activity {
             }
 
             @Override
-            public void onLoadingCancelled(String imageUri, View view) {}
+            public void onLoadingCancelled(String imageUri, View view) {
+            }
         });
         layerViewBottom.textView.setText(string[1]);
         index = 0;
+
+
+        layerViewBottom.dragImageView.setDragListener(new DragListener() {
+            @Override
+            public void onDrag(Matrix matrix, int state) {
+
+            }
+
+            @Override
+            public void onDragOutFinish(int direction) {
+
+            }
+
+            @Override
+            public void onDragOut(int direction) {
+
+            }
+
+            @Override
+            public void onDragReset(int direction) {
+
+            }
+        });
     }
 
 
