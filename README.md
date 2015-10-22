@@ -1,4 +1,7 @@
 # DragImageView
+
+![](https://camo.githubusercontent.com/3f7996bf7bd441deb7199c498aaa835164dee8da/68747470733a2f2f696d672e736869656c64732e696f2f6475622f6c2f766962652d642e737667)
+
 <img src="https://raw.githubusercontent.com/JayFang1993/DragImageView/master/example/src/main/res/drawable/icon.png">
 
 一个可拖拽变换的Imageview，且可以使其他组件伴随变换
@@ -90,6 +93,25 @@ public class MyLayerView extends BaseLayerView {
 * 如果宠物
 
 <img src="https://raw.githubusercontent.com/JayFang1993/DragImageView/master/example/demo.gif" width="40%" height="40%">
+
+
+License
+----------
+
+    Copyright 2015 JayFang, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
 
 
 
