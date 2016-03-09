@@ -1,4 +1,4 @@
-package info.fangjie.dragimageview;
+package info.fangjie.dragimageview.utils;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;

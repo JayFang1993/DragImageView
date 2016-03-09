@@ -1,4 +1,4 @@
-package info.fangjie.dragimageview.example;
+package info.fangjie.dragimageview.example.utils;
 
 import android.animation.Animator;
 import android.animation.PropertyValuesHolder;
@@ -6,7 +6,7 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import info.fangjie.dragimageview.CustomAnimatorListener;
+import info.fangjie.dragimageview.utils.CustomAnimatorListener;
 
 /**
  * 移动 “萌 ”或 “否” 的图标动画类

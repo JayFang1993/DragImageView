@@ -17,10 +17,10 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import info.fangjie.dragimageview.BaseLayerView;
-import info.fangjie.dragimageview.BitmapUtils;
+import info.fangjie.dragimageview.utils.ScaleTypeUtils;
 import info.fangjie.dragimageview.DragImageView;
 import info.fangjie.dragimageview.DragListener;
-import info.fangjie.dragimageview.LayerViewUtils;
+import info.fangjie.dragimageview.utils.LayerViewUtils;
 
 /**
  * Created by FangJie on 15/10/21.
@@ -29,11 +29,11 @@ public class SimpleExample extends Activity {
 
     private BaseLayerView layerViewTop,layerViewBottom;
 
-    private String arr[] = {"http://image17-c.poco.cn/mypoco/qing/20151005/16/3175349739049393137_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150930/00/6519029902905064376_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150729/21/336442309889423136_1024x682_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150903/20/1588628341864082833_661x1024_320.jpg",
-            "http://image17-c.poco.cn/mypoco/qing/20150704/16/1514271282634186881_768x1024_320.jpg"};
+    private String arr[] = {"http://ww2.sinaimg.cn/large/7a8aed7bjw1f1qed6rs61j20ss0zkgrt.jpg",
+            "http://ww3.sinaimg.cn/large/7a8aed7bjw1f1p77v97xpj20k00zkgpw.jpg",
+            "http://ww1.sinaimg.cn/large/7a8aed7bjw1f1o75j517xj20u018iqnf.jpg",
+            "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1klhuc8w5j20d30h9gn8.jpg",
+            "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1jionqvz6j20hs0qoq7p.jpg"};
 
     private static int index = 0;
 
@@ -92,7 +92,7 @@ public class SimpleExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                BitmapUtils.centerCorpImageview(layerViewTop.dragImageView, loadedImage);
+                ScaleTypeUtils.centerCorpImageview(layerViewTop.dragImageView, loadedImage);
             }
 
             @Override
@@ -111,7 +111,7 @@ public class SimpleExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                BitmapUtils.centerCorpImageview(layerViewBottom.dragImageView, loadedImage);
+                ScaleTypeUtils.centerCorpImageview(layerViewBottom.dragImageView, loadedImage);
             }
 
             @Override
@@ -152,8 +152,9 @@ public class SimpleExample extends Activity {
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    BitmapUtils.centerCorpImageview(layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView :
-                            layerViewTop.dragImageView, loadedImage);
+                    ScaleTypeUtils.centerCorpImageview(
+                        layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView
+                            : layerViewTop.dragImageView, loadedImage);
                 }
 
                 @Override

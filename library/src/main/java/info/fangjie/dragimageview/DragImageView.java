@@ -8,7 +8,7 @@ import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
-
+import info.fangjie.dragimageview.utils.CustomAnimatorListener;
 
 /**
  * Created by FangJie on 15/8/27.

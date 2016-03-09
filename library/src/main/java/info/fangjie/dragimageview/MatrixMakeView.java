@@ -5,10 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.widget.TextView;
+import info.fangjie.dragimageview.utils.MatrixUtils;
 
 /**
  * Created by FangJie on 15/9/3.
  */
+@Deprecated
 public class MatrixMakeView extends TextView {
 
     public MatrixMakeView(Context context) {
@@ -36,5 +38,9 @@ public class MatrixMakeView extends TextView {
         canvas.concat(MatrixUtils.removeScale(mMatrix));
         super.draw(canvas);
         canvas.restore();
+    }
+
+    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

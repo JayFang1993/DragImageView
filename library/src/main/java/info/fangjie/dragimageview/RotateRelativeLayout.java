@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
+import info.fangjie.dragimageview.utils.MatrixUtils;
 
 /**
  * Created by FangJie on 15/9/3.
@@ -41,7 +42,7 @@ public class RotateRelativeLayout extends RelativeLayout {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         canvas.save();
-        Matrix newMatrix=MatrixUtils.removeScale(matrix);
+        Matrix newMatrix= MatrixUtils.removeScale(matrix);
         canvas.setMatrix(newMatrix);
         super.dispatchDraw(canvas);
         canvas.restore();

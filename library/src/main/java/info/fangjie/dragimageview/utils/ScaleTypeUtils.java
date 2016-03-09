@@ -1,12 +1,13 @@
-package info.fangjie.dragimageview;
+package info.fangjie.dragimageview.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import info.fangjie.dragimageview.DragImageView;
 
 /**
  * Created by FangJie on 15/10/13.
  */
-public class BitmapUtils {
+public class ScaleTypeUtils {
 
     /**
      * help DragImageView to CENTER_CORP

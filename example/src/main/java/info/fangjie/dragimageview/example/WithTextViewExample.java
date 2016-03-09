@@ -18,10 +18,10 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import info.fangjie.dragimageview.BaseLayerView;
-import info.fangjie.dragimageview.BitmapUtils;
+import info.fangjie.dragimageview.utils.ScaleTypeUtils;
 import info.fangjie.dragimageview.DragImageView;
 import info.fangjie.dragimageview.DragListener;
-import info.fangjie.dragimageview.LayerViewUtils;
+import info.fangjie.dragimageview.utils.LayerViewUtils;
 import info.fangjie.dragimageview.RotateRelativeLayout;
 
 /**
@@ -31,11 +31,11 @@ public class WithTextViewExample extends Activity {
 
     private MyLayerView layerViewTop,layerViewBottom;
 
-    private String arr[] = {"http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222639036_640.jpg",
-            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222721017_640.jpg",
-            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222722013_640.jpg",
-            "http://image17-c.poco.cn/mypoco/myphoto/20151018/22/17436380420151018222645034_640.jpg",
-            "http://image15-c.poco.cn/mypoco/myphoto/20150104/11/5520093920150104111446057_640.jpg"};
+    private String arr[] = {"http://ww2.sinaimg.cn/large/7a8aed7bjw1f1qed6rs61j20ss0zkgrt.jpg",
+        "http://ww3.sinaimg.cn/large/7a8aed7bjw1f1p77v97xpj20k00zkgpw.jpg",
+        "http://ww1.sinaimg.cn/large/7a8aed7bjw1f1o75j517xj20u018iqnf.jpg",
+        "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1klhuc8w5j20d30h9gn8.jpg",
+        "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1jionqvz6j20hs0qoq7p.jpg"};
     private String string[] = {"你我的相遇本身就是一个美丽的错误，\n这也许是天意，\n那就让我们共入歧途吧！ ",
             "如果我你是一粒沙，\n会从我手中划落，\n我不知是否应该将你再次捧起！",
             "生命里，\n最舍不得的那一页，\n总是藏得最深！",
@@ -102,7 +102,8 @@ public class WithTextViewExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                Matrix matrix = BitmapUtils.centerCorpImageview(layerViewTop.dragImageView, loadedImage);
+                Matrix matrix = ScaleTypeUtils.centerCorpImageview(layerViewTop.dragImageView,
+                    loadedImage);
                 layerViewTop.relativeLayout.setMatrix(matrix);
             }
 
@@ -122,7 +123,8 @@ public class WithTextViewExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                Matrix matrix = BitmapUtils.centerCorpImageview(layerViewBottom.dragImageView, loadedImage);
+                Matrix matrix = ScaleTypeUtils.centerCorpImageview(layerViewBottom.dragImageView,
+                    loadedImage);
                 layerViewBottom.relativeLayout.setMatrix(matrix);
             }
 
@@ -193,8 +195,9 @@ public class WithTextViewExample extends Activity {
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    Matrix matrix = BitmapUtils.centerCorpImageview(layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView :
-                            layerViewTop.dragImageView, loadedImage);
+                    Matrix matrix = ScaleTypeUtils.centerCorpImageview(
+                        layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView
+                            : layerViewTop.dragImageView, loadedImage);
                     (layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.relativeLayout :
                             layerViewTop.relativeLayout).setMatrix(matrix);
                 }

@@ -22,12 +22,13 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import info.fangjie.dragimageview.BaseLayerView;
-import info.fangjie.dragimageview.BitmapUtils;
-import info.fangjie.dragimageview.CustomAnimatorListener;
+import info.fangjie.dragimageview.example.utils.MoveAnimatior;
+import info.fangjie.dragimageview.utils.ScaleTypeUtils;
+import info.fangjie.dragimageview.utils.CustomAnimatorListener;
 import info.fangjie.dragimageview.DragImageView;
 import info.fangjie.dragimageview.DragListener;
-import info.fangjie.dragimageview.LayerViewUtils;
-import info.fangjie.dragimageview.MatrixUtils;
+import info.fangjie.dragimageview.utils.LayerViewUtils;
+import info.fangjie.dragimageview.utils.MatrixUtils;
 import info.fangjie.dragimageview.RotateRelativeLayout;
 
 public class TrueOrNotExample extends Activity {
@@ -39,11 +40,11 @@ public class TrueOrNotExample extends Activity {
     private int leftViewLeftMargin, leftViewBottomMargin;//左下图标的初始margin值
     private int rightViewRightMargin, rightViewBottomMargin;//右下图标的初始margin值
 
-    private String arr[] = {"http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152522076_640.jpg",
-            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152536090_640.jpg",
-            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152552092_640.jpg",
-            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152618076_640.jpg",
-            "http://image16-c.poco.cn/mypoco/myphoto/20150321/15/417270520150321152627060_640.jpg"};
+    private String arr[] = {"http://ww2.sinaimg.cn/large/7a8aed7bjw1f1qed6rs61j20ss0zkgrt.jpg",
+        "http://ww3.sinaimg.cn/large/7a8aed7bjw1f1p77v97xpj20k00zkgpw.jpg",
+        "http://ww1.sinaimg.cn/large/7a8aed7bjw1f1o75j517xj20u018iqnf.jpg",
+        "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1klhuc8w5j20d30h9gn8.jpg",
+        "http://ww4.sinaimg.cn/large/7a8aed7bjw1f1jionqvz6j20hs0qoq7p.jpg"};
     private String string[] = {"First", "Second", "Third", "Fourth", "Fifth"};
 
     private static int index = 0;
@@ -116,7 +117,8 @@ public class TrueOrNotExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                Matrix matrix = BitmapUtils.centerCorpImageview(layerViewTop.dragImageView, loadedImage);
+                Matrix matrix = ScaleTypeUtils.centerCorpImageview(layerViewTop.dragImageView,
+                    loadedImage);
                 layerViewTop.relativeLayout.setMatrix(matrix);
             }
 
@@ -134,7 +136,8 @@ public class TrueOrNotExample extends Activity {
 
             @Override
             public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
-                Matrix matrix = BitmapUtils.centerCorpImageview(layerViewBottom.dragImageView, loadedImage);
+                Matrix matrix = ScaleTypeUtils.centerCorpImageview(layerViewBottom.dragImageView,
+                    loadedImage);
                 layerViewBottom.relativeLayout.setMatrix(matrix);
             }
 
@@ -194,8 +197,9 @@ public class TrueOrNotExample extends Activity {
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    Matrix matrix = BitmapUtils.centerCorpImageview(layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView :
-                            layerViewTop.dragImageView, loadedImage);
+                    Matrix matrix = ScaleTypeUtils.centerCorpImageview(
+                        layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.dragImageView
+                            : layerViewTop.dragImageView, loadedImage);
                     (layerOrder == BaseLayerView.LAYER_BOTTOM ? layerViewBottom.relativeLayout :
                             layerViewTop.relativeLayout).setMatrix(matrix);
                 }
@@ -275,13 +279,13 @@ public class TrueOrNotExample extends Activity {
 
 
     private void resetLeftLayout() {
-        ValueAnimator leftReset = MoveAnimatior.createTransAnimation(MoveAnimatior.LEFT, MoveAnimatior.BOTTOM,
-                leftViewLeftMargin, leftViewBottomMargin, 200, mImageviewLeft, new CustomAnimatorListener() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
+        ValueAnimator leftReset = MoveAnimatior.createTransAnimation(MoveAnimatior.LEFT,
+            MoveAnimatior.BOTTOM, leftViewLeftMargin, leftViewBottomMargin, 200, mImageviewLeft,
+            new CustomAnimatorListener() {
+                @Override public void onAnimationEnd(Animator animation) {
 
-                    }
-                });
+                }
+            });
         leftReset.start();
     }
 

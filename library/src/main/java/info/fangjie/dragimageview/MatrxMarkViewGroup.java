@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 /**
  * Created by FangJie on 15/9/3.
  */
+@Deprecated
 public class MatrxMarkViewGroup extends RelativeLayout {
 
     public MatrxMarkViewGroup(Context context, AttributeSet attrs) {
