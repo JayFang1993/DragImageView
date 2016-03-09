@@ -1,6 +1,7 @@
 # DragImageView
 
 ![](https://camo.githubusercontent.com/3f7996bf7bd441deb7199c498aaa835164dee8da/68747470733a2f2f696d672e736869656c64732e696f2f6475622f6c2f766962652d642e737667)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DragImageView-green.svg?style=true)](https://android-arsenal.com/details/1/2721)
 
 <img src="https://raw.githubusercontent.com/JayFang1993/DragImageView/master/example/src/main/res/drawable/icon.png">
 
