@@ -12,7 +12,24 @@
 
 ### How To Use
 
-* 1.每一层必须要用Fragment嵌套DragImageView，如果该层还有其他布局，也要在Fragment内，如果该布局需要随DragImageView共同变换的话，需要嵌套在RotateRelativeLayout内。
+* 1.add dependency
+
+```
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+
+```
+	dependencies {
+	        compile 'com.github.JayFang1993:DragImageView:v1.0'
+	}
+```
+
+* 2.每一层必须要用Fragment嵌套DragImageView，如果该层还有其他布局，也要在Fragment内，如果该布局需要随DragImageView共同变换的话，需要嵌套在RotateRelativeLayout内。
 
 ```
     <FrameLayout
@@ -43,7 +60,7 @@
     </FrameLayout>
 ```
 
-* 2.每一层布局对应一个LayerView
+* 3.每一层布局对应一个LayerView
 
 ```
 
